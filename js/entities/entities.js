@@ -10,7 +10,7 @@ game.PlayerEntity = me.Entity.extend({
                     return(new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
             }]);
-
+        
         this.body.setVelocity(5, 20);
         //keeps track of which direction my character is going
         this.facing = "right";
@@ -83,7 +83,7 @@ game.PlayerEntity = me.Entity.extend({
             this.body.setVelocity(15, 20);
         }
 
-
+        
 
 
         me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -205,7 +205,7 @@ game.EnemyBaseEntity = me.Entity.extend({
     }
 });
 
-game.EnemyCreep = me.entity.extend({
+game.EnemyCreep = me.Entity.extend({
    init: function (x, y, settings) {
        this,_super(me.Entity, 'init', [x, y, {
                image: "creep1",
@@ -220,9 +220,9 @@ game.EnemyCreep = me.entity.extend({
    this.health = 10;
    this.alwaysUpdate = true;
    
-   this.setVelocity(3, 20);
+   this.body.setVelocity(3, 20);
    
-   this.type = "enemyCreep";
+   this.type = "EnemyCreep";
    
    this.renderable.addAnimation("walk", [3, 4, 5], 80);
    this.renderable.setCurrentAnimation("walk");
@@ -231,4 +231,24 @@ game.EnemyCreep = me.entity.extend({
    update:function(){
        
    }
+});
+
+game.GameManager = Object.extend({
+    init: function (x, y, settings) {
+        this.now = new Date().getTime();
+        this.lastCreep = new Date().getTime();
+        
+        this.alwaysUpdate = true;
+    },
+    
+    update: function (){
+        this.now = new Date().getTime();
+        
+        if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >=1000)) {
+            this.lastCreep = this.now;
+            var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
+            me.game.world.addChild(creepe, 5);
+        }
+        return true;
+    }
 });
