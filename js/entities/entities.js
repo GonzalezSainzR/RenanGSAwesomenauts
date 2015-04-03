@@ -340,7 +340,7 @@ game.GameManager = Object.extend({
         
         if(game.data.player.dead) {
             me.game.world.removeChild(game.data.player);
-            me.state.current() .resetPlayer(10,0)
+            me.state.current() .resetPlayer(10,0);
         }
 
         if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {

@@ -15,6 +15,7 @@ body {
 
 	/* Allow canvas to hit the edges of the browser viewport. */
 	margin: 0;
+        font-family: 'Press Start 2P', cursive;
 }
 
 #screen canvas {
@@ -31,3 +32,4 @@ body {
 	image-rendering: optimize-contrast;
 	-ms-interpolation-mode: nearest-neighbor;
 }
+    
